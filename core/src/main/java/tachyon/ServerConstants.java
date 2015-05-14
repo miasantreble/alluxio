@@ -12,7 +12,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
+/* TODO: Add this functionality back
 package tachyon;
 
 import tachyon.worker.DataServer;
@@ -20,9 +20,11 @@ import tachyon.worker.DataServer;
 /**
  * Constants on server side
  */
+/* TODO: Add this functionality back
 public class ServerConstants {
 
   public static final Class<? extends DataServer> WORKER_DATA_SERVER_CLASS =
       tachyon.worker.netty.NettyDataServer.class;
 
 }
+*/

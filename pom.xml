@@ -147,7 +147,7 @@
     <module>core</module>
     <module>shell</module>
     <module>examples</module>
-    <module>integration-tests</module>
+<!--<module>integration-tests</module>-->
     <module>assembly</module>
   </modules>
 
