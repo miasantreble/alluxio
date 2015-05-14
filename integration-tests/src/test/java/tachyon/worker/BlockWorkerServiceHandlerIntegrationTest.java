@@ -41,7 +41,7 @@ import tachyon.util.CommonUtils;
 /**
  * Integration tests for tachyon.WorkerServiceHandler
  */
-public class WorkerServiceHandlerIntegrationTest {
+public class BlockWorkerServiceHandlerIntegrationTest {
   private static final long WORKER_CAPACITY_BYTES = 10000;
   private static final int USER_QUOTA_UNIT_BYTES = 100;
 

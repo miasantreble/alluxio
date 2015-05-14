@@ -246,7 +246,7 @@ service MasterService {
    */
   i32 user_getRawTableId(1: string path)
     throws (1: InvalidPathException e)
-     
+
   /**
    * Get RawTable's info; Return a ClientRawTable instance with id 0 if the system does not contain
    * the table. path if valid iff id is -1.
@@ -258,7 +258,7 @@ service MasterService {
     throws (1: TableDoesNotExistException eT, 2: TachyonException eTa)
 
   string user_getUfsAddress()
-  
+
   /**
    * Returns if the message was received. Intended to check if the client can still connect to the
    * master.
@@ -270,6 +270,17 @@ service MasterService {
 }
 
 service WorkerService {
+  /**
+   * Used to allocate location and space for a new coming block, worker will choose the appropriate
+   * storage directory which fits the initial block size by some allocation strategy, and the
+   * temporary file path of the block file will be returned. if there is no enough space on Tachyon
+   * storage OutOfSpaceException will be thrown, if the file is already being written by the user,
+   * FileAlreadyExistException will be thrown.
+   */
+  string createBlock(1: i64 userId, 2: i64 blockId, 3: i64 blockSize, 4: i32 tierHint)
+    throws (1: OutOfSpaceException eP, 2: FileAlreadyExistException eS)
+
+  // ================================ WORKER V1 INTERFACE =======================================
   void accessBlock(1: i64 blockId)
 
   void addCheckpoint(1: i64 userId, 2: i32 fileId)
@@ -282,7 +293,7 @@ service WorkerService {
   /**
    * Used to cache a block into Tachyon space, worker will move the temporary block file from user
    * folder to data folder, and update the space usage information related. then update the block
-   * information to master. 
+   * information to master.
    */
   void cacheBlock(1: i64 userId, 2: i64 blockId)
     throws (1: FileDoesNotExistException eP, 2: BlockInfoException eB)

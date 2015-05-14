@@ -1,13 +1,24 @@
-package tachyon.worker;
+package tachyon.worker.block;
 
 import tachyon.thrift.*;
 
 /**
  * Handles all thrift RPC calls to the worker.
  */
-public class WorkerServiceHandler implements WorkerService.Iface {
+public class BlockWorkerServiceHandler implements WorkerService.Iface {
 
-  // ======================== WORKER V1 INTERFACE ===============================
+  private final BlockWorker mBlockWorker;
+
+  public BlockWorkerServiceHandler(BlockWorker blockWorker) {
+    mBlockWorker = blockWorker;
+  }
+
+  public String createBlock(long userId, long blockId, long blockSize, int tierHint)
+      throws OutOfSpaceException, FileAlreadyExistException {
+    return mBlockWorker.createBlock(userId, blockId, blockSize, tierHint);
+  }
+
+  // ================================ WORKER V1 INTERFACE =======================================
   public void accessBlock(long blockId) throws org.apache.thrift.TException {
 
   }
