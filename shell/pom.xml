@@ -8,8 +8,8 @@
   <groupId>org.tachyonproject</groupId>
   <artifactId>tachyon-shell</artifactId>
   <packaging>jar</packaging>
-  <description>Tachyon Project Shell: A Linux shell-like interface to manage Tachyon</description>
-  <name>Tachyon Project Shell</name>
+  <name>Tachyon Shell</name>
+  <description>A Linux shell-like interface to interact with Tachyon</description>
 
   <properties>
     <license.header.path>${project.parent.basedir}/build/license/</license.header.path>
@@ -42,14 +42,14 @@
     </dependency>
     <dependency>
       <groupId>org.tachyonproject</groupId>
-      <artifactId>tachyon</artifactId>
+      <artifactId>tachyon-servers</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <!-- TODO: remove this dependency for TestUtils -->
       <groupId>org.tachyonproject</groupId>
-      <artifactId>tachyon</artifactId>
+      <artifactId>tachyon-servers</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -60,6 +60,12 @@
       <artifactId>tachyon-integration-tests</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.tachyonproject</groupId>
+      <artifactId>tachyon-underfs-local</artifactId>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

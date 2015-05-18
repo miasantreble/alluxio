@@ -8,7 +8,7 @@
   <groupId>org.tachyonproject</groupId>
   <artifactId>tachyon-client</artifactId>
   <packaging>jar</packaging>
-  <name>Tachyon Project Clients - Distribution </name>
+  <name>Tachyon Clients - Distribution</name>
   <description>Distribution of Tachyon client module with shaded packages in jar</description>
 
   <properties>
@@ -68,18 +68,10 @@
       <artifactId>slf4j-api</artifactId>
     </dependency>
 
-    <!-- Dependencies copied from tachyon-client-unshaded -->
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
+    <!-- Dependencies copied from tachyon-client-unshaded, not included in tachyon-common -->
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
     </dependency>
 
     <!-- Other Tachyon dependencies -->
@@ -124,7 +116,7 @@
           <groupId>org.tachyonproject</groupId>
           <artifactId>tachyon-common</artifactId>
         </exclusion>
-      </exclusions>     
+      </exclusions>
     </dependency>
 
   </dependencies>
