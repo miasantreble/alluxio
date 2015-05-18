@@ -14,7 +14,7 @@ public class NaiveAllocator implements Allocator {
   }
 
   @Override
-  public BlockMeta allocateBlock(long userId, long blockId, long blockSize, int tierHint) {
-    return null;
+  public BlockMeta allocateBlock(int userId, long blockId, long blockSize, int tierHint) {
+    return mMetadata.createBlockInTier(userId, blockId, blockSize, tierHint);
   }
 }

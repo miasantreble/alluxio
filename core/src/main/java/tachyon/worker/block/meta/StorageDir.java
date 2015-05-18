@@ -23,6 +23,7 @@ public class StorageDir {
     mAvailableBytes = capacityBytes;
     mDirPath = dirPath;
     mBlocks = new HashMap<Long, BlockMeta>(200);
+    mUsers2Blocks = new HashMap<Long, Set<BlockMeta>>(20);
   }
 
   public synchronized BlockMeta createBlock(long userId, long blockId, long blockSize) {
@@ -37,6 +38,8 @@ public class StorageDir {
     } else {
       userBlocks.add(toAdd);
     }
-
+    mCapacityBytes += blockSize;
+    mAvailableBytes -= blockSize;
+    return toAdd;
   }
 }
