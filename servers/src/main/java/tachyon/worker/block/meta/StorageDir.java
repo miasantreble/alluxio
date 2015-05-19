@@ -23,11 +23,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
 /**
- * Represents one isolated storage unit.
+ * Represents one isolated storage unit. The methods provided by this class are thread safe.
  */
 public class StorageDir {
-  private Map<Long, BlockMeta> mBlocks;
-  private Map<Long, Set<BlockMeta>> mUsers2Blocks;
+  private Map<Long, BlockMeta> mIdToBlocksMap;
+  private Map<Long, Set<Long>> mUsersToBlocksMap;
   private long mCapacityBytes;
   private long mAvailableBytes;
   private String mDirPath;
@@ -36,21 +36,21 @@ public class StorageDir {
     mCapacityBytes = capacityBytes;
     mAvailableBytes = capacityBytes;
     mDirPath = dirPath;
-    mBlocks = new HashMap<Long, BlockMeta>(200);
-    mUsers2Blocks = new HashMap<Long, Set<BlockMeta>>(20);
+    mIdToBlocksMap = new HashMap<Long, BlockMeta>(200);
+    mUsersToBlocksMap = new HashMap<Long, Set<Long>>(20);
   }
 
   public synchronized BlockMeta createBlock(long userId, long blockId, long blockSize) {
-    Preconditions.checkArgument(!mBlocks.containsKey(blockId), "Block already exists.");
+    Preconditions.checkArgument(!mIdToBlocksMap.containsKey(blockId), "Block already exists.");
     if (mAvailableBytes < blockSize) {
       return null;
     }
     BlockMeta toAdd = new BlockMeta(blockId, blockSize, mDirPath);
-    Set<BlockMeta> userBlocks = mUsers2Blocks.get(userId);
+    Set<Long> userBlocks = mUsersToBlocksMap.get(userId);
     if (null == userBlocks) {
-      mUsers2Blocks.put(userId, Sets.newHashSet(toAdd));
+      mUsersToBlocksMap.put(userId, Sets.newHashSet(blockId));
     } else {
-      userBlocks.add(toAdd);
+      userBlocks.add(blockId);
     }
     mCapacityBytes += blockSize;
     mAvailableBytes -= blockSize;

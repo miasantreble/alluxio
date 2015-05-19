@@ -25,7 +25,8 @@ import tachyon.thrift.TachyonException;
 import tachyon.thrift.WorkerService;
 
 /**
- * Handles all thrift RPC calls to the worker.
+ * Handles all thrift RPC calls to the worker. This class is a thrift server implementation and
+ * is thread safe.
  */
 public class BlockWorkerServiceHandler implements WorkerService.Iface {
 

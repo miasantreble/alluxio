@@ -148,7 +148,10 @@
     <module>servers</module>
     <module>shell</module>
     <module>examples</module>
-<!--<module>integration-tests</module>-->
+<!--
+    TODO: Enable this when the worker module is complete
+    <module>integration-tests</module>
+-->
     <module>assembly</module>
   </modules>
 

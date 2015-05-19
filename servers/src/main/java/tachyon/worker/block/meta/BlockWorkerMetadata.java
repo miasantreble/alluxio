@@ -22,7 +22,8 @@ import tachyon.Constants;
 import tachyon.conf.TachyonConf;
 
 /**
- * Class that provides metadata operations for the worker.
+ * Class that provides metadata operations for the worker. The methods provided by this class are
+ * thread safe.
  */
 public class BlockWorkerMetadata {
 

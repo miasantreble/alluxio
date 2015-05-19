@@ -30,4 +30,6 @@ public class EvictionSummary {
     mToTransfer = toTransfer;
     mToEvict = toEvict;
   }
+
+  // TODO: Implement toString()
 }

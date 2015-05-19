@@ -23,7 +23,8 @@ import tachyon.conf.TachyonConf;
 import tachyon.util.CommonUtils;
 
 /**
- * Represents a tier of storage, for example memory or SSD.
+ * Represents a tier of storage, for example memory or SSD. The methods provided by this class are
+ * thread safe.
  */
 public class StorageTier {
   private Set<StorageDir> mStorageDirs;
