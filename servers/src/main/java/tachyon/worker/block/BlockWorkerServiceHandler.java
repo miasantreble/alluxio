@@ -36,9 +36,67 @@ public class BlockWorkerServiceHandler implements WorkerService.Iface {
     mBlockWorker = blockWorker;
   }
 
+  /**
+   * Used to create a new block on this worker. This is only used for local clients.
+   *
+   * @param userId The id of the client
+   * @param blockId The id of the block
+   * @param blockSize The size of the block in bytes
+   * @param tierHint Any tier preference for the block
+   * @return Path to the local file
+   * @throws OutOfSpaceException
+   * @throws FileAlreadyExistException
+   */
   public String createBlock(long userId, long blockId, long blockSize, int tierHint)
       throws OutOfSpaceException, FileAlreadyExistException {
     return mBlockWorker.createBlock(userId, blockId, blockSize, tierHint);
+  }
+
+  /**
+   * Used to close a block. Calling this method will move the block from the user temporary
+   * folder to the worker's data folder.
+   * @param blockId
+   */
+  public void completeBlock(long blockId) {
+
+  }
+
+  /**
+   * Used to remove a block from the Tachyon storage managed by this worker.
+   * @param blockId
+   */
+  public void freeBlock(long blockId) {
+
+  }
+
+  /**
+   * Used to get a completed block for reading. This method should only be used if the block is
+   * in Tachyon managed space on this worker.
+   * @param blockId
+   * @return
+   */
+  public String getBlock(long blockId) {
+    return null;
+  }
+
+  // TODO: Rename this method when complete, currently is V2 to avoid checkstyle errors
+  /**
+   * Obtains a lock on the block.
+   * @param blockId
+   * @return
+   */
+  public boolean lockBlockV2(long blockId) {
+    return false;
+  }
+
+  // TODO: Rename this method when complete, currently is V2 to avoid checkstyle errors
+  /**
+   * Relinquishes the lock on the block.
+   * @param blockId
+   * @return
+   */
+  public boolean unlockBlockV2(long blockId) {
+    return false;
   }
 
   // ================================ WORKER V1 INTERFACE =======================================

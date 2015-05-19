@@ -18,6 +18,8 @@ package tachyon.worker.block.meta;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Optional;
+
 import tachyon.Constants;
 import tachyon.conf.TachyonConf;
 
@@ -39,10 +41,11 @@ public class BlockWorkerMetadata {
     }
   }
 
-  public BlockMeta createBlockInTier(long userId, long blockId, long blockSize, int tierAlias) {
+  public Optional<BlockMeta> createBlockInTier(long userId, long blockId, long blockSize, int
+      tierAlias) {
     StorageTier tier = mTiers.get(tierAlias);
     if (tier == null) {
-      return null;
+      return Optional.absent();
     }
     return tier.createBlock(userId, blockId, blockSize);
   }

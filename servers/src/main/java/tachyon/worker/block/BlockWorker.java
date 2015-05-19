@@ -15,6 +15,8 @@
 
 package tachyon.worker.block;
 
+import com.google.common.base.Optional;
+
 import tachyon.conf.TachyonConf;
 import tachyon.worker.block.allocator.Allocator;
 import tachyon.worker.block.allocator.NaiveAllocator;
@@ -42,11 +44,11 @@ public class BlockWorker {
   }
 
   public String createBlock(long userId, long blockId, long blockSize, int tierHint) {
-    BlockMeta meta = mAllocator.allocateBlock(userId, blockId, blockSize, tierHint);
-    if (meta == null) {
+    Optional<BlockMeta> meta = mAllocator.allocateBlock(userId, blockId, blockSize, tierHint);
+    if (!meta.isPresent()) {
       mEvictor.freeSpace(blockSize, tierHint);
       meta = mAllocator.allocateBlock(userId, blockId, blockSize, tierHint);
     }
-    return meta.getTmpPath();
+    return meta.get().getTmpPath();
   }
 }

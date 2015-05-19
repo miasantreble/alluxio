@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
@@ -40,10 +41,10 @@ public class StorageDir {
     mUsersToBlocksMap = new HashMap<Long, Set<Long>>(20);
   }
 
-  public synchronized BlockMeta createBlock(long userId, long blockId, long blockSize) {
+  public synchronized Optional<BlockMeta> createBlock(long userId, long blockId, long blockSize) {
     Preconditions.checkArgument(!mIdToBlocksMap.containsKey(blockId), "Block already exists.");
     if (mAvailableBytes < blockSize) {
-      return null;
+      return Optional.absent();
     }
     BlockMeta toAdd = new BlockMeta(blockId, blockSize, mDirPath);
     Set<Long> userBlocks = mUsersToBlocksMap.get(userId);
@@ -54,6 +55,6 @@ public class StorageDir {
     }
     mCapacityBytes += blockSize;
     mAvailableBytes -= blockSize;
-    return toAdd;
+    return Optional.of(toAdd);
   }
 }

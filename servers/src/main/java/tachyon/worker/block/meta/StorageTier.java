@@ -18,6 +18,8 @@ package tachyon.worker.block.meta;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.common.base.Optional;
+
 import tachyon.Constants;
 import tachyon.conf.TachyonConf;
 import tachyon.util.CommonUtils;
@@ -48,13 +50,13 @@ public class StorageTier {
     }
   }
 
-  public BlockMeta createBlock(long userId, long blockId, long blockSize) {
+  public Optional<BlockMeta> createBlock(long userId, long blockId, long blockSize) {
     for (StorageDir dir : mStorageDirs) {
-      BlockMeta newBlock = dir.createBlock(userId, blockId, blockSize);
-      if (newBlock != null) {
+      Optional<BlockMeta> newBlock = dir.createBlock(userId, blockId, blockSize);
+      if (newBlock.isPresent()) {
         return newBlock;
       }
     }
-    return null;
+    return Optional.absent();
   }
 }
