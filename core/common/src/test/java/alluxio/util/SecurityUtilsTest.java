@@ -12,24 +12,21 @@
 package alluxio.util;
 
 import alluxio.Configuration;
-import alluxio.ConfigurationTestUtils;
+import alluxio.LoginUserRule;
 import alluxio.PropertyKey;
 import alluxio.security.LoginUserTestUtils;
 import alluxio.security.authentication.AuthType;
 import alluxio.security.authentication.AuthenticatedClientUser;
 import alluxio.security.group.provider.IdentityUserGroupsMapping;
 
-import org.junit.After;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 
 public final class SecurityUtilsTest {
 
-  @After
-  public void after() {
-    LoginUserTestUtils.resetLoginUser();
-    ConfigurationTestUtils.resetConfiguration();
-  }
+  @Rule
+  public LoginUserRule mLoginUserRule = new LoginUserRule("test_client_user");
 
   /**
    * Tests the {@link SecurityUtils#getOwnerFromThriftClient()} ()} method.

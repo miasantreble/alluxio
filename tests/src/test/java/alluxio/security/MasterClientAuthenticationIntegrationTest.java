@@ -13,6 +13,7 @@ package alluxio.security;
 
 import alluxio.AlluxioURI;
 import alluxio.LocalAlluxioClusterResource;
+import alluxio.LoginUserRule;
 import alluxio.PropertyKey;
 import alluxio.BaseIntegrationTest;
 import alluxio.client.file.FileSystemMasterClient;
@@ -22,9 +23,7 @@ import alluxio.exception.status.UnavailableException;
 import alluxio.security.authentication.AuthType;
 import alluxio.security.authentication.AuthenticationProvider;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -47,15 +46,8 @@ public final class MasterClientAuthenticationIntegrationTest extends BaseIntegra
   @Rule
   public ExpectedException mThrown = ExpectedException.none();
 
-  @Before
-  public void before() throws Exception {
-    clearLoginUser();
-  }
-
-  @After
-  public void after() throws Exception {
-    clearLoginUser();
-  }
+  @Rule
+  public LoginUserRule mLoginUserRule = new LoginUserRule("alluxio");
 
   @Test
   @LocalAlluxioClusterResource.Config(
@@ -140,10 +132,6 @@ public final class MasterClientAuthenticationIntegrationTest extends BaseIntegra
         masterClient.getStatus(new AlluxioURI(filename), GetStatusOptions.defaults()));
     masterClient.disconnect();
     masterClient.close();
-  }
-
-  private void clearLoginUser() throws Exception {
-    LoginUserTestUtils.resetLoginUser();
   }
 
   /**
